@@ -37,3 +37,9 @@ export const selectEmployeeData = createSelector(
     }
   }
 )
+
+export const selectEmployeesForCompany = createSelector(
+  state => state.employees.employees,
+  (_, companyId) => companyId,
+  (employees, companyId) => employees.filter(employee => employee.companyId === companyId)
+)

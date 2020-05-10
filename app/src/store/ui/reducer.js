@@ -98,7 +98,8 @@ export const ui = (state = initialState, action) => {
       return {
         ...state,
         editPanel: {
-          shouldShowEditPanel: true
+          shouldShowEditPanel: true,
+          ...payload
         }
       }
     }

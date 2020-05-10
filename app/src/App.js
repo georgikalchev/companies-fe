@@ -35,7 +35,7 @@ function App () {
     setIsNavigationHidden(!isNavigationHidden)
   }
 
-  const { shouldShowEditPanel } = useSelector(selectEditPanelVisibility)
+  const edit = useSelector(selectEditPanelVisibility)
   return (
     <div className={styles.App}>
       <div
@@ -53,8 +53,8 @@ function App () {
         <section>
           <InformationPanel />
         </section>
-        {shouldShowEditPanel && <section>
-          <EditPanel />
+        {edit.shouldShowEditPanel && <section className={styles.edit}>
+          <EditPanel {...edit} />
         </section>}
       </div>
     </div>

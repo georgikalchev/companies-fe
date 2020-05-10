@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.container li {
+    padding: 8px 0 0;
+}
+
+.container li span {
+    margin-left: 8px;
+}
+
+.container li:hover {
+    text-decoration: underline;
+}
+
+.main {
+    flex: 2;
+    padding: 30px;
+}
+
+.main form {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    min-width: 300px;
+    margin: 0 auto;
+}
+
+.main input {
+    margin: 16px 0;
+}
+
+.main ul {
+    height: 200px;
+    overflow: auto;
+}
+
+.aside {
+    flex: 1;
+    padding: 30px;
+    width: 30%;
+}
+
+.main button {
+    border-radius: 8px;
+    border-bottom: solid #282c34;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #282c34;
+}
+
+.save {
+    background-color: dodgerblue;
+
+}
+
+.cancel {
+    background-color: #f0f0f0;
+    color: #282c34;
+}
+
+.danger {
+    background-color: crimson;
+}

@@ -1,20 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles.module.css'
-import { selectProject } from '../../store/ui/actions'
+import { edit, selectProject } from '../../store/ui/actions'
 import { useDispatch } from 'react-redux'
 import { GrClearOption, GrEdit, GrIntegration } from 'react-icons/gr'
 import cx from 'classnames'
 
 const Project = ({ id, name, department, companyId, companyName, canBeEdited }) => {
-  console.log({ id, name, department, companyId, companyName, canBeEdited })
   const dispatch = useDispatch()
   const handleSelectingProject = () => {
     dispatch(selectProject({ id, companyId, companyName }))
   }
 
   const handleEditProject = (id) => {
-    // dispatch(selectProjectForEdit(id))
+    dispatch(edit({ projectId: id, companyId: companyId }))
   }
 
   const handleRemovingProject = (id) => {
