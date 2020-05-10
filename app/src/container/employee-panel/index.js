@@ -22,7 +22,7 @@ const EmployeePanel = ({ data }) => {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <div className={styles.bio}>
+        <div>
           <h1>{data.firstName} {data.lastName}</h1>
           <p>{formatBirthDate(data.dateOfBirth)}</p>
         </div>

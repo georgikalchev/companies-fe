@@ -10,6 +10,7 @@ import {
   TOGGLE_EXPAND_COMPANY,
   TOGGLE_EXPAND_JOB_AREA
 } from './actions'
+import { CANCEL_PROJECT_MANIPULATION, DELETE_PROJECT, SAVE_PROJECT } from '../projects/actions'
 
 const initialState = ({
   expandedCompanies: [],
@@ -103,6 +104,15 @@ export const ui = (state = initialState, action) => {
         }
       }
     }
+    case SAVE_PROJECT:
+    case CANCEL_PROJECT_MANIPULATION:
+    case DELETE_PROJECT:
+      return {
+        ...state,
+        editPanel: {
+          shouldShowEditPanel: false
+        }
+      }
 
     default:
       return state

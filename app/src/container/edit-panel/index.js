@@ -1,46 +1,58 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectEmployeesForCompany } from '../../store/employees/selectors'
 import { selectProject } from '../../store/projects/selectors'
 import styles from './styles.module.css'
 import EmployeeList from '../../component/employee-list'
 import { GrFormClose, GrUserAdd } from 'react-icons/gr'
+import { cancelProjectManipulation, deleteProject, saveProject } from '../../store/projects/actions'
 
 const EditPanel = ({ projectId, companyId }) => {
+  const dispatch = useDispatch()
   const projectDetails = useSelector(state => selectProject(state, projectId))
   const employeesInTheCompany = useSelector(state => selectEmployeesForCompany(state, companyId))
   const [name, setName] = useState('')
   const [department, setDepartment] = useState('')
-  const [employees, setEmployees] = useState([])
+  const [selectedEmployees, setSelectedEmployees] = useState([])
   const [availableEmployees, setAvailableEmployees] = useState([])
 
   useEffect(() => {
-    const current = employees.map(emp => emp.id)
+    const current = selectedEmployees.map(emp => emp.id)
     const filtered = employeesInTheCompany.filter(employee => current.indexOf(employee.id) === -1)
     console.log(filtered)
     setAvailableEmployees(filtered)
-  }, [employeesInTheCompany, employees])
+  }, [employeesInTheCompany, selectedEmployees])
 
   useEffect(() => {
     setName(projectDetails.project.name)
     setDepartment(projectDetails.project.department)
-    setEmployees(projectDetails.employees)
+    setSelectedEmployees(projectDetails.employees)
   }, [projectDetails])
   const handleAddingEmployee = (employee) => {
-    setEmployees([...employees, employee])
+    setSelectedEmployees([...selectedEmployees, employee])
   }
   const handleRemovingEmployee = (employee) => {
     console.log(employee)
-    const filtered = employees.filter(emp => emp.id !== employee.id)
-    setEmployees(filtered)
+    const filtered = selectedEmployees.filter(emp => emp.id !== employee.id)
+    setSelectedEmployees(filtered)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('submit')
+    const project = {
+      id: projectId,
+      companyId,
+      name,
+      department,
+      employeesId: selectedEmployees.map(employee => employee.id)
+    }
+    dispatch(saveProject(project))
   }
   const handleReset = () => {
-    console.log('reset')
+    dispatch(cancelProjectManipulation())
+  }
+  const handleDeleteProject = (id) => {
+    dispatch(deleteProject(id))
   }
 
   return (
@@ -55,7 +67,7 @@ const EditPanel = ({ projectId, companyId }) => {
           <h3>Assigned employees:</h3>
           <ul>
             <EmployeeList
-              list={employees}
+              list={selectedEmployees}
               handler={handleRemovingEmployee}
               icon={<GrFormClose size={22} />}
             />
@@ -66,7 +78,9 @@ const EditPanel = ({ projectId, companyId }) => {
           <button type='reset' className={styles.cancel}>
             Cancel
           </button>
-          <button type='button' value='REMOVE PROJECT' className={styles.danger}>
+          <button
+            onClick={() => handleDeleteProject(projectId)}
+            type='button' value='REMOVE PROJECT' className={styles.danger}>
             REMOVE
           </button>
         </form>

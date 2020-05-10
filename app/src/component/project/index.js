@@ -5,6 +5,7 @@ import { edit, selectProject } from '../../store/ui/actions'
 import { useDispatch } from 'react-redux'
 import { GrClearOption, GrEdit, GrIntegration } from 'react-icons/gr'
 import cx from 'classnames'
+import { deleteProject } from '../../store/projects/actions'
 
 const Project = ({ id, name, department, companyId, companyName, canBeEdited }) => {
   const dispatch = useDispatch()
@@ -17,7 +18,7 @@ const Project = ({ id, name, department, companyId, companyName, canBeEdited }) 
   }
 
   const handleRemovingProject = (id) => {
-    // dispatch(removeProject(id))
+    dispatch(deleteProject(id))
   }
 
   return (
