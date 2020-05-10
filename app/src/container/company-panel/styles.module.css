@@ -1,0 +1,53 @@
+.container {
+    padding: calc(1rem + 2vmax) calc(2rem + 10vmax);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.heading {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    border-bottom: #282c34 solid;
+    align-items: baseline;
+}
+
+.name h1 {
+    font-size: 32px;
+    text-decoration: underline;
+}
+
+.name p {
+    margin: 1rem 0;
+    font-size: 18px;
+    color: #6f6f6f;
+    font-weight: bolder;
+    text-transform: lowercase;
+}
+
+.name {
+    flex: 2;
+}
+
+.address {
+    flex: 1;
+}
+
+.projects {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 33vw;
+    min-width: 300px;
+}
+
+.projects h2 {
+    padding: calc(10px + 1vmax);
+    text-decoration: underline;
+
+}
+
+.projects ul {
+    margin-top: 20px;
+}

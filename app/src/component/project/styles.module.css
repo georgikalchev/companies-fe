@@ -1,0 +1,53 @@
+.project {
+    display: flex;
+    padding: 0 2rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #6f6f6f;
+}
+
+.project:hover {
+    box-shadow: 1px 1px 1px 1px #6f6f6f;
+}
+
+.info {
+    cursor: pointer;
+}
+
+.control svg {
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+}
+
+.control svg:hover {
+    transform: scale(1.5);
+}
+
+.remove {
+    position: relative;
+}
+
+.remove:hover .tooltiptext {
+    visibility: visible;
+    color: #f0f0f0;
+    font-weight: bold;
+    font-size: 12px;
+    top: -20px;
+
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.danger {
+    background-color: crimson;
+}
+.ok{
+    background-color: dodgerblue;
+}

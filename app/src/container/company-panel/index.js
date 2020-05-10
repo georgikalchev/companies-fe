@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './styles.module.css'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { selectCompanyDetails } from '../../store/companies/selectors'
@@ -12,24 +13,27 @@ const CompanyPanel = ({ companyId }) => {
 
   const { company, address, projects } = companyDetails
   return (
-    <div>
-      <h1>{company.name}</h1>
-      <p>{company.business}</p>
-      <div>
-        <h3>Address:</h3>
-        <p>city: {address.city}</p>
-        <p>country:{address.country}</p>
-        <p>street: {address.street}</p>
-        <p>state:{address.state}</p>
+    <div className={styles.container}>
+      <div className={styles.heading}>
+        <div className={styles.name}>
+          <h1>{company.name}</h1>
+          <p>{company.business}</p>
+        </div>
+        <div className={styles.address}>
+          <p>{address.country}, {address.state}</p>
+          <p>{address.city}, {address.street}</p>
+        </div>
       </div>
-      <h2>projects</h2>
-      <ul>
-        {projects.map(project => (
-          <Project
-            key={project.id}
-            {...project} />
-        ))}
-      </ul>
+      <div className={styles.projects}>
+        <h2>PROJECTS</h2>
+        <ul>
+          {projects.map(project => (
+            <Project
+              key={project.id}
+              {...project} />
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
