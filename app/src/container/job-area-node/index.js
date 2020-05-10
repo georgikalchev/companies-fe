@@ -11,9 +11,7 @@ const JobAreaNode = ({ companyId, selectedCompanies }) => {
   const expandedJobAreas = useSelector(selectExpandedJobAreas)
   const companyJobAreas = useSelector(state => selectJobAreaForCompany(state, companyId))
   const companyProjects = useSelector(state => selectProjectsForCompany(state, companyId))
-
   const toggleExpand = (id) => {
-    console.log(id)
     dispatch(expandJobArea(id))
   }
   const handleSelectingJobArea = (data) => {
@@ -34,6 +32,9 @@ const JobAreaNode = ({ companyId, selectedCompanies }) => {
       activeProjectsForJobArea: activeProjectsForJobArea.size,
       jobArea
     }
+  }
+  if (selectedCompanies.has(companyId) && Object.keys(companyJobAreas).length === 0) {
+    return <ul><li>nothing to see here</li></ul>
   }
   return (
     <React.Fragment>

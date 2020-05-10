@@ -8,7 +8,8 @@ import JobAreaNode from '../job-area-node'
 
 const CompanyNode = ({ companies }) => {
   const dispatch = useDispatch()
-  const selectedCompanies = useSelector(selectExpandedCompanies)
+  const expandedCompanies = useSelector(selectExpandedCompanies)
+  console.log(expandedCompanies)
   const handleSelectingCompany = (companyId) => {
     dispatch(selectCompany(companyId))
   }
@@ -25,20 +26,22 @@ const CompanyNode = ({ companies }) => {
   return (
     <ul>
       {
-        loading ? <h1>LOADING</h1> : companies.map(company => (
-          <NavNode
-            key={company.id}
-            element={company}
-            isSelected={selectedCompanies.has(company.id)}
-            toggleExpand={toggleExpand}
-            handleSelect={() => handleSelectingCompany(company.id)}
-          >
-            <JobAreaNode
-              companyId={company.id}
-              selectedCompanies={selectedCompanies}
-            />
-          </NavNode>
-        ))
+        loading ? <h1>LOADING</h1> : companies.map(company => {
+          return (
+            <NavNode
+              key={company.id}
+              element={company}
+              isExpanded={expandedCompanies.has(company.id)}
+              toggleExpand={toggleExpand}
+              handleSelect={() => handleSelectingCompany(company.id)}
+            >
+              <JobAreaNode
+                companyId={company.id}
+                selectedCompanies={expandedCompanies}
+              />
+            </NavNode>
+          )
+        })
       }
     </ul>
   )
