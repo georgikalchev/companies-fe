@@ -7,16 +7,15 @@ const NavNode = ({ element, isExpanded, toggleExpand, handleSelect, children }) 
   if (!element) {
     return null
   }
-  console.log(children)
   return (
     <li>
       <div className={styles.item}>
-        <h4 onClick={() => {
+        <h3 onClick={() => {
           toggleExpand(element.id)
         }}>
-          {children && (isExpanded ? <GrFormSubtract /> : <GrFormAdd />)}
-        </h4>
-        <h4 onClick={handleSelect}>{element.name}</h4>
+          {isExpanded ? <GrFormSubtract /> : <GrFormAdd />}
+        </h3>
+        <h3 className={isExpanded ? styles.expanded : undefined} onClick={handleSelect}>{element.name}</h3>
       </div>
 
       {children}

@@ -6,7 +6,6 @@ import { COMPANY, JOB_AREA } from '../ui/actions'
 
 const Header = () => {
   const selected = useSelector(selectSelected)
-  console.log(selected)
   const showMessage = (selected) => {
     switch (selected.selectedType) {
       case COMPANY:

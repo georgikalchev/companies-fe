@@ -9,7 +9,6 @@ import JobAreaNode from '../job-area-node'
 const CompanyNode = ({ companies }) => {
   const dispatch = useDispatch()
   const expandedCompanies = useSelector(selectExpandedCompanies)
-  console.log(expandedCompanies)
   const handleSelectingCompany = (companyId) => {
     dispatch(selectCompany(companyId))
   }
@@ -31,7 +30,7 @@ const CompanyNode = ({ companies }) => {
             <NavNode
               key={company.id}
               element={company}
-              isExpanded={expandedCompanies.has(company.id)}
+              isExpanded={expandedCompanies.indexOf(company.id) > -1}
               toggleExpand={toggleExpand}
               handleSelect={() => handleSelectingCompany(company.id)}
             >

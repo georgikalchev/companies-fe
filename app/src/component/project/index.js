@@ -9,9 +9,7 @@ const Project = ({ id, name, department }) => {
     dispatch(selectProject(id))
   }
   return (
-    <li
-      onClick={() => handleSelectingProject(id)}
-    >
+    <li onClick={() => handleSelectingProject({ id })}>
       <h3>{name}</h3>
       <p>{department}</p>
     </li>)

@@ -4,22 +4,15 @@
     white-space: nowrap;
     cursor: pointer;
 }
-.item:hover{
+.item h3:hover{
     text-shadow: 2px 1px #61616144;
+    text-decoration: underline;
 }
 
-.item .chevron {
-    transform: rotateZ(0deg);
-    transition: transform 0.5s;
-
-}
-
-h4 .chevron .expanded {
-    transform: rotateZ(90deg);
-
-}
-
-.item h4 {
+.item h3 {
     display: inline-block;
     margin-left: 8px;
+}
+.expanded{
+    text-decoration: underline;
 }

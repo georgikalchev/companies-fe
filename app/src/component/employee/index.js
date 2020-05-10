@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { selectEmployee } from '../../store/ui/actions'
+import styles from './styles.module.css'
 
 const Employee = ({ employee }) => {
   const dispatch = useDispatch()
@@ -9,7 +10,9 @@ const Employee = ({ employee }) => {
     dispatch(selectEmployee(employee))
   }
   return (
-    <li onClick={() => handleSelectingEmployee(employee)}>
+    <li
+      className={styles.employee}
+      onClick={() => handleSelectingEmployee(employee)}>
       {employee.firstName} {employee.lastName}
     </li>
   )

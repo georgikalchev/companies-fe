@@ -29,15 +29,11 @@ export const selectEmployeeData = createSelector(
   state => state.projects.projects,
   (_, data) => data,
   (projects, data) => {
-    console.log(data)
     return {
       details: data,
       projects:
         projects.filter(project => project.companyId === data.companyId)
-          .filter(project => {
-            console.log(project.employeesId, data.id)
-            return project.employeesId.indexOf(data.id) > -1
-          })
+          .filter(project => project.employeesId.indexOf(data.id) > -1)
     }
   }
 )

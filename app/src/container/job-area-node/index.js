@@ -33,12 +33,14 @@ const JobAreaNode = ({ companyId, selectedCompanies }) => {
       jobArea
     }
   }
-  if (selectedCompanies.has(companyId) && Object.keys(companyJobAreas).length === 0) {
-    return <ul><li>nothing to see here</li></ul>
+  if (selectedCompanies.indexOf(companyId) > -1 && Object.keys(companyJobAreas).length === 0) {
+    return <ul>
+      <li>nothing to see here</li>
+    </ul>
   }
   return (
     <React.Fragment>
-      {selectedCompanies.has(companyId) && companyJobAreas && <ul>
+      {selectedCompanies.indexOf(companyId) > -1 && companyJobAreas && <ul>
         {
           Object.entries(companyJobAreas).map(([jobArea, employees]) => {
             const id = companyId + jobArea
@@ -46,11 +48,11 @@ const JobAreaNode = ({ companyId, selectedCompanies }) => {
             return (<NavNode
               key={id}
               element={{ name: jobArea, id }}
-              isExpanded={expandedJobAreas.has(id)}
+              isExpanded={expandedJobAreas.indexOf(id) > -1}
               toggleExpand={toggleExpand}
               handleSelect={() => handleSelectingJobArea(payload)}
             >
-              {expandedJobAreas.has(id) && <EmployeeNode employees={employees} />}
+              {expandedJobAreas.indexOf(id) > -1 && <EmployeeNode employees={employees} />}
             </NavNode>)
           })
         }

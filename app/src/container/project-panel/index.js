@@ -5,8 +5,7 @@ import { selectProject } from '../../store/projects/selectors'
 import EmployeeNode from '../employee-node'
 
 const ProjectPanel = ({ data }) => {
-  const { project, employees } = useSelector(state => selectProject(state, data))
-  console.log(project)
+  const { project, employees } = useSelector(state => selectProject(state, data.id))
   if (!project) {
     return (
       <h1>sorry we could not find information about this project</h1>
@@ -25,7 +24,9 @@ const ProjectPanel = ({ data }) => {
 }
 
 ProjectPanel.propTypes = {
-  data: PropTypes.string
+  data: PropTypes.shape({
+    id: PropTypes.string
+  })
 }
 
 export default ProjectPanel
