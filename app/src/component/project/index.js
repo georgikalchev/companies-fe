@@ -3,29 +3,48 @@ import PropTypes from 'prop-types'
 import styles from './styles.module.css'
 import { selectProject } from '../../store/ui/actions'
 import { useDispatch } from 'react-redux'
-import { GrClearOption, GrEdit } from 'react-icons/gr'
+import { GrClearOption, GrEdit, GrIntegration } from 'react-icons/gr'
 import cx from 'classnames'
 
-const Project = ({ id, name, department }) => {
+const Project = ({ id, name, department, companyId, companyName, canBeEdited }) => {
+  console.log({ id, name, department, companyId, companyName, canBeEdited })
   const dispatch = useDispatch()
-  const handleSelectingProject = (id) => {
-    dispatch(selectProject(id))
+  const handleSelectingProject = () => {
+    dispatch(selectProject({ id, companyId, companyName }))
   }
+
+  const handleEditProject = (id) => {
+    // dispatch(selectProjectForEdit(id))
+  }
+
+  const handleRemovingProject = (id) => {
+    // dispatch(removeProject(id))
+  }
+
   return (
     <li className={styles.project}>
-      <div className={styles.info} onClick={() => handleSelectingProject({ id })}>
+      <div className={styles.info} onClick={handleSelectingProject}>
         <h3>{name}</h3>
         <p>{department}</p>
       </div>
       <div className={styles.control}>
-        <span className={styles.remove}>
+        <span className={styles.option} onClick={handleSelectingProject}>
+          <GrIntegration />
+          <span className={cx(styles.tooltip, styles.open)}>DETAILS</span>
+        </span>
+        {canBeEdited && (
+          <React.Fragment>
+        <span className={styles.option} onClick={() => handleEditProject(id)}>
           <GrEdit />
-          <span className={cx(styles.tooltiptext, styles.ok)}>EDIT</span>
+          <span className={cx(styles.tooltip, styles.edit)}>EDIT</span>
         </span>
-        <span className={styles.remove}>
+            <span className={styles.option} onClick={() => handleRemovingProject(id)}>
           <GrClearOption />
-          <span className={cx(styles.tooltiptext, styles.danger)}>REMOVE</span>
+          <span className={cx(styles.tooltip, styles.danger)}>REMOVE</span>
         </span>
+          </React.Fragment>
+        )}
+
       </div>
     </li>)
 }

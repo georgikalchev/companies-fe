@@ -1,0 +1,32 @@
+.container {
+    padding: calc(1rem + 2vmax) calc(2rem + 10vmax);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.info {
+    border-bottom: #282c34 solid;
+    align-items: baseline;
+    padding-bottom: 1rem;
+}
+
+.position span {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.projects {
+    margin-top: 2rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 33vw;
+    min-width: 300px;
+}
+
+.projects h2 {
+    padding: calc(10px + 1vmax);
+    text-decoration: underline;
+    text-transform: uppercase;
+}

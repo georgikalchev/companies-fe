@@ -1,7 +1,7 @@
 .App {
     height: 100vh;
     overflow: hidden;
-    flex-direction: column;
+    /*flex-direction: column;*/
     display: flex;
 }
 
@@ -17,10 +17,15 @@
     box-shadow: 0 0 10px #282c34;
 }
 
+.App-header span {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .body {
     display: flex;
     flex: 1;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     overflow: hidden;
 }
@@ -28,11 +33,38 @@
 aside {
     flex: 0 0 20%;
     min-width: 280px;
-    padding: 3rem 0;
+    max-width: 360px;
+    padding: 5rem 0 3rem;
     overflow-y: auto;
     border-top: solid #282c34 2px;
     position: relative;
+    transition: max-width 0.5s, min-width 0.5s;
 }
+
+.band {
+    width: 100%;
+    background-color: darkorange;
+    height: 60px;
+    position: absolute;
+    top: 0;
+}
+
+.hide {
+    max-width: 0;
+    min-width: 0;
+}
+
+.toggler {
+    position: absolute;
+    height: 60px;
+    background-color: darkorange;
+    width: 60px;
+    top: 2px;
+    color: #f0f0f0;
+    z-index: 100;
+    transition: min-width 0.5s 0.1s, width 0.5s 0.1s;
+}
+
 
 section {
     flex: 5;

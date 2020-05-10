@@ -30,6 +30,9 @@ const CompanyPanel = ({ companyId }) => {
           {projects.map(project => (
             <Project
               key={project.id}
+              canBeEdited
+              companyId={company.id}
+              companyName={company.name}
               {...project} />
           ))}
         </ul>

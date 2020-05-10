@@ -1,5 +1,5 @@
 import {
-  COMPANY,
+  COMPANY, EDIT_PROJECT,
   EMPLOYEE,
   JOB_AREA,
   PROJECT,
@@ -91,6 +91,14 @@ export const ui = (state = initialState, action) => {
         selected: {
           selectedType: PROJECT,
           data: payload
+        }
+      }
+    }
+    case EDIT_PROJECT: {
+      return {
+        ...state,
+        editPanel: {
+          shouldShowEditPanel: true
         }
       }
     }

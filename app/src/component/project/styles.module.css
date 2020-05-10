@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 
-.tooltiptext {
+.tooltip {
     visibility: hidden;
     position: absolute;
     z-index: 1;
@@ -30,24 +30,28 @@
     transform: scale(1.5);
 }
 
-.remove {
+.option {
     position: relative;
 }
 
-.remove:hover .tooltiptext {
+.option:hover .tooltip {
     visibility: visible;
     color: #f0f0f0;
     font-weight: bold;
     font-size: 12px;
     top: -20px;
-
-    border-radius: 5px;
-    padding: 0 5px;
+    border-radius: 20px 20px 20px 0;
+    padding: 0 20px;
 }
 
 .danger {
     background-color: crimson;
 }
-.ok{
+
+.edit {
     background-color: dodgerblue;
+}
+
+.open {
+    background-color: seagreen;
 }

@@ -8,6 +8,7 @@ export const EMPLOYEE = 'EMPLOYEE'
 export const PROJECT = 'PROJECT'
 export const TOGGLE_EXPAND_COMPANY = 'TOGGLE_EXPAND_COMPANY'
 export const TOGGLE_EXPAND_JOB_AREA = 'TOGGLE_EXPAND_JOB_AREA'
+export const EDIT_PROJECT = 'EDIT_PROJECT'
 
 export const expandCompany = (payload) => ({
   payload,
@@ -33,4 +34,8 @@ export const selectProject = (payload) => ({
 export const selectEmployee = (payload) => ({
   payload,
   type: SELECT_EMPLOYEE
+})
+export const edit = (payload) => ({
+  payload,
+  type: EDIT_PROJECT
 })
