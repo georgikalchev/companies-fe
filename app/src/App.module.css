@@ -3,6 +3,40 @@
     overflow: hidden;
     /*flex-direction: column;*/
     display: flex;
+    position: relative;
+}
+
+.minor-error {
+    position: absolute;
+    background-color: #282c34af;
+    color: #f0f0f0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.minor-error > div {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 30%;
+    background-color: #f0f0f0;
+    color: palevioletred;
+    padding: 30px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.minor-error button {
+    font-size: 1rem;
+    margin-top: auto;
+    height: 30px;
 }
 
 .App-header {
@@ -15,6 +49,10 @@
     color: white;
     padding: 1rem;
     box-shadow: 0 0 10px #282c34;
+}
+
+.App-header h1 {
+    cursor: pointer;
 }
 
 .App-header span {
@@ -75,6 +113,6 @@ section {
     background-color: #f0f0f0;
 }
 
-.edit{
+.edit {
     flex: 10
 }

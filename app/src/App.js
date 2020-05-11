@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './App.module.css'
-import { getCompanies, getCompaniesAddresses, getEmployees, getProjects } from './api'
+import { errorHandler, getCompanies, getCompaniesAddresses, getEmployees, getProjects } from './api'
 import Navigation from './container/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveFetchedCompanies, saveFetchedCompaniesAddresses } from './store/companies/actions'
@@ -8,9 +8,10 @@ import { saveFetchedProjects } from './store/projects/actions'
 import { saveFetchedEmployees } from './store/employees/actions'
 import InformationPanel from './container/information-panel'
 import EditPanel from './container/edit-panel'
-import { selectEditPanelVisibility } from './store/ui/selector'
-import Header from './store/header'
+import { selectEditPanelVisibility, selectMinorErrorVisibility } from './store/ui/selector'
+import Header from './container/header'
 import { GrList } from 'react-icons/gr'
+import { clearSelection, dismiss } from './store/ui/actions'
 
 function App () {
   const dispatch = useDispatch()
@@ -26,8 +27,13 @@ function App () {
       dispatch(saveFetchedCompaniesAddresses(addresses))
       dispatch(saveFetchedProjects(projects))
       dispatch(saveFetchedEmployees(employees))
+      dispatch(clearSelection())
     }).catch(error => {
-      console.log(error)
+      errorHandler(error, dispatch)
+      dispatch(saveFetchedCompanies([]))
+      dispatch(saveFetchedCompaniesAddresses([]))
+      dispatch(saveFetchedProjects([]))
+      dispatch(saveFetchedEmployees([]))
     })
   }, [dispatch])
 
@@ -36,8 +42,16 @@ function App () {
   }
 
   const edit = useSelector(selectEditPanelVisibility)
+  const minorError = useSelector(selectMinorErrorVisibility)
   return (
     <div className={styles.App}>
+      {minorError && minorError.shouldShow &&
+      <div className={styles['minor-error']}>
+        <div>
+          {minorError.message}
+          <button onClick={() => dispatch(dismiss())}>DISMISS</button>
+        </div>
+      </div>}
       <div
         onClick={hideNavigation}
         className={styles.toggler}>

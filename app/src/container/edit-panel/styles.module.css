@@ -31,7 +31,18 @@
 }
 
 .main input {
+    text-align: center;
+    font-weight: bold;
     margin: 16px 0;
+    outline: none;
+    background-color: #f0f0f0;
+    border: 0;
+    border-bottom: 1px #6f6f6f solid;
+}
+
+.main input:focus {
+    border-bottom: 2px #6f6f6f solid;
+    margin: 16px 0 15px;
 }
 
 .main ul {
@@ -47,10 +58,24 @@
 
 .main button {
     border-radius: 8px;
-    border-bottom: solid #282c34;
     margin-bottom: 8px;
     font-weight: bold;
     color: #282c34;
+    outline: none;
+}
+
+.main button:focus {
+    border: solid #6f6f6f;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.main button:hover {
+    box-shadow: 0 0 4px 0 #282c34;
+}
+
+.main button:active {
+    box-shadow: inset 0 0 4px 0 #282c34;
 }
 
 .save {

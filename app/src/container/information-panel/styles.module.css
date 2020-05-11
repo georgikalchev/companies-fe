@@ -1,0 +1,15 @@
+.default {
+    margin-top: 20vmin;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 64px;
+}
+
+.default h1 {
+    margin-bottom: 3rem;
+}
+
+.default li {
+    font-size: 24px;
+}

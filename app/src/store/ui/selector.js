@@ -14,6 +14,10 @@ export const selectSelected = createSelector(
 )
 export const selectEditPanelVisibility = createSelector(
   state => state.ui,
-  ui => ui.editPanel || { shouldShowEditPanel: false }
+  ui => ui.editPanel
+)
+export const selectMinorErrorVisibility = createSelector(
+  state => state.ui,
+  ui => ui.displayMinorError
 )
 

@@ -18,7 +18,7 @@ const ProjectPanel = ({ data }) => {
       <h1>{project.name}</h1>
       <p>{project.department}</p>
       <p>assigned employees:</p>
-      <EmployeeNode employees={employees} />
+      <EmployeeNode employees={employees} isInsideTheProjectPanel />
     </div>
   )
 }
