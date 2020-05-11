@@ -1,6 +1,11 @@
 import {
-  COMPANY, EDIT_PROJECT,
+  CLEAR_SELECTION,
+  COMPANY,
+  EDIT_PROJECT,
   EMPLOYEE,
+  ERROR,
+  ERROR_MINOR,
+  ERROR_MINOR_DISMISS,
   JOB_AREA,
   PROJECT,
   SELECT_COMPANY,
@@ -10,14 +15,21 @@ import {
   TOGGLE_EXPAND_COMPANY,
   TOGGLE_EXPAND_JOB_AREA
 } from './actions'
-import { CANCEL_PROJECT_MANIPULATION, DELETE_PROJECT, SAVE_PROJECT } from '../projects/actions'
+import { CANCEL_PROJECT_MANIPULATION, SAVE_PROJECT } from '../projects/actions'
 
 const initialState = ({
   expandedCompanies: [],
   expandedJobAreas: [],
   selected: {
     selectedType: null,
-    selectedId: null
+    data: null
+  },
+  displayMinorError: {
+    shouldShow: false,
+    message: ''
+  },
+  editPanel: {
+    shouldShowEditPanel: false
   }
 })
 
@@ -48,6 +60,13 @@ export const ui = (state = initialState, action) => {
         expandedJobAreas: jobAreaSet
       }
     }
+    case CLEAR_SELECTION: {
+      return {
+        ...state,
+        selected: {}
+      }
+    }
+
     case SELECT_COMPANY: {
       const updatedSet = [...state.expandedCompanies]
       if (updatedSet.indexOf(payload) === -1) {
@@ -95,6 +114,33 @@ export const ui = (state = initialState, action) => {
         }
       }
     }
+    case ERROR: {
+      return {
+        ...state,
+        selected: {
+          selectedType: ERROR,
+          data: payload
+        }
+      }
+    }
+    case ERROR_MINOR: {
+      return {
+        ...state,
+        displayMinorError: {
+          shouldShow: true,
+          message: payload
+        }
+      }
+    }
+    case ERROR_MINOR_DISMISS: {
+      return {
+        ...state,
+        displayMinorError: {
+          shouldShow: false,
+          message: ''
+        }
+      }
+    }
     case EDIT_PROJECT: {
       return {
         ...state,
@@ -106,7 +152,6 @@ export const ui = (state = initialState, action) => {
     }
     case SAVE_PROJECT:
     case CANCEL_PROJECT_MANIPULATION:
-    case DELETE_PROJECT:
       return {
         ...state,
         editPanel: {

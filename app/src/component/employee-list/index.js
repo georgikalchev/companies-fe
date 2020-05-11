@@ -12,6 +12,16 @@ const EmployeeList = ({ list, handler, icon }) => {
   )
 }
 
-EmployeeList.propTypes = {}
+EmployeeList.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string
+    })
+  ),
+  handler: PropTypes.func,
+  icon: PropTypes.node
+}
 
 export default EmployeeList

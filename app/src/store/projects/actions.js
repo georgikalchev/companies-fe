@@ -1,6 +1,5 @@
 export const SAVE_FETCHED_PROJECTS = 'SAVE_FETCHED_PROJECTS'
 export const SAVE_PROJECT = 'SAVE_PROJECT'
-export const DELETE_PROJECT = 'DELETE_PROJECT'
 export const CANCEL_PROJECT_MANIPULATION = 'CANCEL_PROJECT_MANIPULATION'
 
 export const saveFetchedProjects = (payload) => ({
@@ -15,9 +14,4 @@ export const saveProject = (payload) => ({
 
 export const cancelProjectManipulation = () => ({
   type: CANCEL_PROJECT_MANIPULATION
-})
-
-export const deleteProject = (payload) => ({
-  type: DELETE_PROJECT,
-  payload
 })

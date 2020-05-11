@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import NavNode from '../../component/nav-node'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,16 +16,10 @@ const CompanyNode = ({ companies }) => {
   const toggleExpand = (id) => {
     dispatch(expandCompany(id))
   }
-  useEffect(() => {
-    if (companies && companies.length > 0) {
-      setLoading(false)
-    }
-  }, [companies])
-  const [loading, setLoading] = useState(true)
   return (
     <ul>
       {
-        loading ? <h1>LOADING</h1> : companies.map(company => {
+        companies.map(company => {
           return (
             <NavNode
               key={company.id}

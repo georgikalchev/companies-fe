@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectEmployeesForCompany } from '../../store/employees/selectors'
 import { selectProject } from '../../store/projects/selectors'
 import styles from './styles.module.css'
 import EmployeeList from '../../component/employee-list'
 import { GrFormClose, GrUserAdd } from 'react-icons/gr'
-import { cancelProjectManipulation, deleteProject, saveProject } from '../../store/projects/actions'
+import { cancelProjectManipulation, saveFetchedProjects } from '../../store/projects/actions'
+import { callDeleteProject, callSaveProject, errorHandler } from '../../api'
 
 const EditPanel = ({ projectId, companyId }) => {
   const dispatch = useDispatch()
@@ -15,51 +17,81 @@ const EditPanel = ({ projectId, companyId }) => {
   const [department, setDepartment] = useState('')
   const [selectedEmployees, setSelectedEmployees] = useState([])
   const [availableEmployees, setAvailableEmployees] = useState([])
-
+  const [hasError, setHasError] = useState(false)
   useEffect(() => {
     const current = selectedEmployees.map(emp => emp.id)
     const filtered = employeesInTheCompany.filter(employee => current.indexOf(employee.id) === -1)
-    console.log(filtered)
     setAvailableEmployees(filtered)
   }, [employeesInTheCompany, selectedEmployees])
 
   useEffect(() => {
-    setName(projectDetails.project.name)
-    setDepartment(projectDetails.project.department)
-    setSelectedEmployees(projectDetails.employees)
-  }, [projectDetails])
+    if (projectId) {
+      setName(projectDetails.project.name)
+      setDepartment(projectDetails.project.department)
+      setSelectedEmployees(projectDetails.employees)
+    }
+  }, [projectDetails, projectId])
   const handleAddingEmployee = (employee) => {
     setSelectedEmployees([...selectedEmployees, employee])
   }
   const handleRemovingEmployee = (employee) => {
-    console.log(employee)
     const filtered = selectedEmployees.filter(emp => emp.id !== employee.id)
     setSelectedEmployees(filtered)
   }
+  const areProjectDetailsValid = () => {
+    const areValid = companyId && companyId.trim().length > 0 && name && name.trim().length > 0 && department &&
+      department.trim().length
+    setHasError(!areValid)
+    return areValid
 
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
-    const project = {
-      id: projectId,
-      companyId,
-      name,
-      department,
-      employeesId: selectedEmployees.map(employee => employee.id)
+    if (areProjectDetailsValid()) {
+      const project = {
+        id: projectId,
+        companyId,
+        name,
+        department,
+        employeesId: selectedEmployees.map(employee => employee.id)
+      }
+      Promise.resolve(callSaveProject(project))
+        .then(res => {
+          if (Array.isArray(res)) {
+            dispatch(saveFetchedProjects(res))
+            dispatch(cancelProjectManipulation(project))
+          }
+        })
+        .catch(e => {
+            errorHandler(e, dispatch)
+          }
+        )
     }
-    dispatch(saveProject(project))
+
   }
   const handleReset = () => {
     dispatch(cancelProjectManipulation())
   }
   const handleDeleteProject = (id) => {
-    dispatch(deleteProject(id))
-  }
+    Promise.resolve(callDeleteProject(id))
+      .then(res => {
+        if (Array.isArray(res)) {
+          dispatch(saveFetchedProjects(res))
 
+        }
+      })
+      .catch(e => {
+          errorHandler(e, dispatch)
+        }
+      ).finally(dispatch(cancelProjectManipulation()))
+  }
+  const isNewProject = !projectId
   return (
     <div className={styles.container}>
       <div className={styles.main}>
-        <h1>EDIT DATA HERE</h1>
+        {isNewProject ? <h1>CREATE NEW PROJECT</h1> : <h1>EDIT DATA HERE</h1>}
         <form onSubmit={handleSubmit} onReset={handleReset}>
+          {hasError && <span className={styles.danger}>Please make sure both the name and the department of the project are set</span>}
           <label>name:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
           <label>department:</label>
@@ -78,11 +110,11 @@ const EditPanel = ({ projectId, companyId }) => {
           <button type='reset' className={styles.cancel}>
             Cancel
           </button>
-          <button
+          {!isNewProject && <button
             onClick={() => handleDeleteProject(projectId)}
             type='button' value='REMOVE PROJECT' className={styles.danger}>
             REMOVE
-          </button>
+          </button>}
         </form>
 
       </div>
@@ -98,6 +130,10 @@ const EditPanel = ({ projectId, companyId }) => {
       </div>
     </div>
   )
+}
+EditPanel.propTypes = {
+  projectId: PropTypes.string,
+  companyId: PropTypes.string
 }
 
 export default EditPanel

@@ -27,6 +27,14 @@ const CompanyPanel = ({ companyId }) => {
       <div className={styles.projects}>
         <h2>PROJECTS</h2>
         <ul>
+          <Project
+            companyId={company.id}
+            companyName={company.name}
+            forCreation
+            name='Add a new project'
+            department=''
+
+          />
           {projects.map(project => (
             <Project
               key={project.id}
